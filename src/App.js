@@ -7,6 +7,7 @@ import Products from './pages/Products';
 import ProductDetails from './pages/ProductDetails';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
+  const connectedUser={name:"FakeUser", roles:["FakeAdmin"]}
   return (
     <>
     <Header></Header>
@@ -20,7 +21,7 @@ function App() {
           render={(propos) =>  <Products {...propos} /> }></Route>
           <Route path='/products/:name' 
           render={(propos) =>  <ProductDetails {...propos} /> }></Route>
-          <Route exact render={()=><p>Default rendered page!</p>}></Route>
+          <Route exact render={()=><p>Default rendered page! Welcome {connectedUser.name}</p>}></Route>
         </Routes>
         </Suspense>
     </BrowserRouter>
