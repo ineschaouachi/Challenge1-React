@@ -2,6 +2,44 @@ import React, {Component} from 'react'
 import styled from "styled-components"
 export default class Product extends Component {
 
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      product : props.product, updated :0
+    }
+    this.addPrice = this.addPrice.bind(this)
+  }
+
+  componentDidMount() {
+    console.log(
+      "I have finished "+
+      this.props.product.name + 
+      " price : " +
+      this.state.product.price
+      );
+  }
+
+  componentDidUpdate(){
+    console.log("I have been updated " + this.state.updated + " times");
+  }
+
+    componentWillUnmount(){
+    console.log("I'm being destroyed");
+  }
+
+
+    addPrice = (e) => {
+      e.preventDefault();
+     return this.setState ((oldState) => ({
+        product : {
+          ...oldState.product,
+          price : Number(oldState.product.price)+0.1
+        },
+        updated:oldState.updated+1
+      }))
+    }
+
   render(){
     
     return (
@@ -10,8 +48,11 @@ export default class Product extends Component {
           <ProductImage src={this.props.product.img}></ProductImage>
           </ProductImageWrapper>
           <ProductInfoWrapper>
-            <span>{this.props.product.name}</span>
-            <span>{this.props.product.price}</span>
+            <span>
+              <a href={'/product/' + this.props.product.name}>{this.state.product.name}</a>
+            </span>
+            <span>{this.props.product.price}{""}{Number(this.state.product.price)> 2 && " Expensive"}</span>
+            <button onClick={this.addPrice}> Add 0.1</button>
           </ProductInfoWrapper>
         </ProductFrame>
     );
