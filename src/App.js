@@ -1,5 +1,6 @@
 import './App.css';
 import styled from "styled-components";
+import React, {Suspense} from 'react';
 import Header from './components/Header';
 import Welcome from './pages/Welcome';
 import Products from './pages/Products';
@@ -10,7 +11,8 @@ function App() {
     <>
     <Header></Header>
     <AppFrame className="App">
-      <BrowserRouter>
+      <BrowserRouter basename='/'>
+        <Suspense fallback={<p>...Loading page please wait</p>}>
         <Routes>
           <Route path='/welcome' 
           render={(propos) =>  <Welcome {...propos} /> }></Route>
@@ -20,6 +22,7 @@ function App() {
           render={(propos) =>  <ProductDetails {...propos} /> }></Route>
           <Route exact render={()=><p>Default rendered page!</p>}></Route>
         </Routes>
+        </Suspense>
     </BrowserRouter>
     </AppFrame>
     </>
@@ -28,6 +31,6 @@ function App() {
 const AppFrame = styled.div`
   text-align : center;
   display : flex;
-  `;
+  flex-direction:column;`;
 
 export default App;
