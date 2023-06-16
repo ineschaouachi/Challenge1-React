@@ -9,9 +9,15 @@ export default class ProductDetails extends Component{
         const toRender = products.filter((products) =>
         products.name===name)[0]
         return(
+            <>
+            <button onClick={() => this.props.history.replace("/products")}>Return to ProductsWrapper</button>
             <ProductsWrapper>
                 {toRender ? (<Product product={toRender}></Product>) : (<p>Product not found</p>)}
         </ProductsWrapper>
+        </>
         )
     }
 }
+const ProductsWrapper = styled.div`
+text-align: center;
+display: flex;`;
